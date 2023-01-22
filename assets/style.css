@@ -1,0 +1,56 @@
+@keyframes fade{
+    from {
+        opacity: 1;
+    }
+    to{
+        opacity: 0;
+    }
+}
+.nav {
+    position: fixed;
+}
+
+.nav ul {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.nav ul li {
+    margin: 10px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+body, a {
+    background: #313131;
+    color: #eee;
+}
+
+button {
+    color: darkred;
+}
+
+.danger {
+    background: #d74040;
+}
+
+.success {
+    background: #119947;
+}
+
+.notify {
+    position: fixed;
+    top: 10px;
+    right: 0;
+    padding: 10px;
+    font-size: 1.2rem;
+    border-radius: 4px 0 0 4px;
+    /*animation-delay: 3s;*/
+    /*animation: fade 1s;*/
+}
