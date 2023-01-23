@@ -1,11 +1,3 @@
-@keyframes fade{
-    from {
-        opacity: 1;
-    }
-    to{
-        opacity: 0;
-    }
-}
 .nav {
     position: fixed;
 }
@@ -18,6 +10,13 @@
 
 .nav ul li {
     margin: 10px;
+    list-style-type: none;
+    font-size: 1.3rem;
+}
+
+.nav ul li a {
+    text-decoration: none;
+    font-size: 1.3rem;
 }
 
 .container {
@@ -53,4 +52,13 @@ button {
     border-radius: 4px 0 0 4px;
     /*animation-delay: 3s;*/
     /*animation: fade 1s;*/
+}
+
+.users, .users td{
+    padding: 5px;
+    border: 1px solid #000;
+}
+.cultures, .cultures td{
+    padding: 5px;
+    border: 1px solid #000;
 }

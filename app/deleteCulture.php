@@ -1,14 +1,14 @@
 <?php
-function deleteNote( int $noteId)
+function deleteCulture( int $noteId)
 {
     if (empty($noteId)) {
         return false;
     }
-    $query = "delete from notes where id = :id";
+    $query = "delete from cultures where id = :id";
     $query = PDO_Connect::connect()->prepare($query);
     $query->execute([
         ':id' => $noteId,
     ]);
-    notify('note is deleted');
+    notify('Culture is deleted');
     redirect('/home');
 }

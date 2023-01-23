@@ -13,7 +13,7 @@ function redirect($path = '/')
     exit();
 }
 
-function rdrCondition($condition, $path = '/', $msg ="", $class ="danger", $return ="")
+function rdrCondition($condition, $path = '/', $msg = null, $class ="danger", $return = null,)
 {
     if ($condition) {
         notify($msg, $class);

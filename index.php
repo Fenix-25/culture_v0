@@ -10,3 +10,8 @@ if (!empty($_POST)){
     require_once 'app/redirect.php';
     require_once 'parts/footer.php';
 }
+/*
+ * todo видалення культури
+ * todo редагування культури
+ * todo культура має бути лінком
+ * */
