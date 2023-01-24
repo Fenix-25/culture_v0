@@ -10,9 +10,12 @@
     </select>
     <label for="select-element">User</label>
     <select name="user" id="select-element">
-        <option></option>
         <?php foreach ($users as $user): ?>
-            <option value="<?= $user['id'] ?>" data-max="<?= $user['square'] ?>"><?= $user['name']. " " .$user['surname'] ?></option>
+            <?php if (!empty($user['square'])): ?>
+                <option value="<?= $user['id'] ?>"
+                        data-max="<?= $user['square'] ?>"><?= $user['name'] . " " . $user['surname'] ?>
+                </option>
+            <?php endif; ?>
         <?php endforeach; ?>
     </select> <br>
     <label for="input-element">Square</label>

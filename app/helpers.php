@@ -52,7 +52,7 @@ function remUserSes(): void
     redirect();
 }
 
-function selectRecord($row, $table, $value)
+function selectRecord(string $row, string $table, int $value)
 {
     $query = "select {$row} from {$table} where id = :id";
     $select = PDO_Connect::connect()->prepare($query);
@@ -61,6 +61,7 @@ function selectRecord($row, $table, $value)
     ]);
     return $select->fetch(PDO::FETCH_ASSOC);
 }
+
 function deleteRecord(string $from, int $id): void
 {
     $query = "delete from {$from} where id = :id";
@@ -69,14 +70,27 @@ function deleteRecord(string $from, int $id): void
         ':id' => htmlspecialchars($id),
     ]);
 }
-function updateRecord($table, $value, $setValue, $id): void
+
+function updateRecord(string $table, string $value, float $setValue, int $id): void
 {
     $update = "update {$table} set {$value} = :new where id = :id";
     $update = PDO_Connect::connect()->prepare($update);
     $update->execute([
-        ':new' =>htmlspecialchars($setValue),
+        ':new' => htmlspecialchars($setValue),
         ':id' => htmlspecialchars($id)
     ]);
+}
+
+
+function insertRecord(string $table, array $data): void
+{
+    $query = "insert into " . $table .
+        "(" . htmlspecialchars(implode(", ", array_keys(($data)))) . ") values (:" . implode(", :", array_keys($data)) . ")";
+    $query = PDO_Connect::connect()->prepare($query);
+    foreach ($data as $column => $value){
+        $query->bindValue(":" . $column, $value);
+    }
+    $query->execute();
 }
 
 function isEmpty($value): bool
