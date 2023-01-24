@@ -2,16 +2,20 @@
 <?php $users = users(); ?>
 <form action="/" method="post">
     <input type="hidden" value="createOrder" name="type">
-    <input type="number" step="0.01" placeholder="Square" name="square"> ha <br>
-    <select name="culture" id="">
+    <label for="culture">Culture</label>
+    <select name="culture" id="culture">
         <?php foreach ($cultures as $culture): ?>
             <option value="<?= $culture['id'] ?>"><?= $culture['name'] ?></option>
         <?php endforeach; ?>
     </select>
-    <select name="user" id="">
+    <label for="select-element">User</label>
+    <select name="user" id="select-element">
+        <option></option>
         <?php foreach ($users as $user): ?>
-            <option value="<?= $user['id'] ?>"><?= $user['name']. " " .$user['surname'] ?></option>
+            <option value="<?= $user['id'] ?>" data-max="<?= $user['square'] ?>"><?= $user['name']. " " .$user['surname'] ?></option>
         <?php endforeach; ?>
     </select> <br>
+    <label for="input-element">Square</label>
+    <input id="input-element" type="number" min="0.01" step="0.01" placeholder="Square" name="square" max=""> ha <br>
     <input type="submit" value="Save">
 </form>

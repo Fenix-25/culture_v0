@@ -9,6 +9,8 @@
     <title>Culture App</title>
 </head>
 <body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
 <?php if (!empty($_SESSION['user'])): ?>
     <div class="nav">
         <ul>
@@ -20,6 +22,12 @@
             </li>
             <li>
                 <a href="/createOrder">Create order</a>
+            </li>
+            <li>
+                <a href="/allData">All data</a>
+            </li>
+            <li>
+                <a href="/factory">Factory</a>
             </li>
             <li>
                 <a href="/profile">Profile</a>

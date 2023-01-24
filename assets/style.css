@@ -1,3 +1,9 @@
+*{
+    font-size: 1.1rem;
+}
+.tables{
+    display: flex;
+}
 .nav {
     position: fixed;
 }
@@ -54,11 +60,18 @@ button {
     /*animation: fade 1s;*/
 }
 
-.users, .users td{
+table{
+    margin: 0 10px;
+}
+
+.users, .users td, .cultures, .cultures td, .orders, .orders td{
     padding: 5px;
     border: 1px solid #000;
 }
-.cultures, .cultures td{
-    padding: 5px;
-    border: 1px solid #000;
+.card {
+    display: flex;
+}
+
+.card span {
+    margin: 0 10px 10px 0;
 }

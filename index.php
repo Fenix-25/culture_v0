@@ -1,4 +1,7 @@
 <?php
+if (!session_id()) {
+    session_start();
+}
 require_once 'vendor/autoload.php';
 require_once 'app/PDO_Connect.php';
 require_once 'functions.php';
@@ -10,8 +13,3 @@ if (!empty($_POST)){
     require_once 'app/redirect.php';
     require_once 'parts/footer.php';
 }
-/*
- * todo видалення культури
- * todo редагування культури
- * todo культура має бути лінком
- * */

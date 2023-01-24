@@ -5,13 +5,16 @@ function registration( array $data): void
     $confirmPassword = htmlspecialchars($data['confirmPassword']);
     emailDuplicate($data['email']);
     pwdCheck($password, $confirmPassword);
-    $query = "insert into users(name, surname, phone, password, email) values (:name, :surname, :phone, :password,:email)";
+    $query = "insert into users(name, surname, phone, password, email, square_for_rent, square) values
+                (:name, :surname, :phone, :password, :email, :square_for_rent, :square)";
     $user = PDO_Connect::connect()->prepare($query);
     $user->execute([
         ':name' => htmlspecialchars($data['name']),
         ':surname' => htmlspecialchars($data['surname']),
         ':phone' => htmlspecialchars($data['phone']),
         ':email' => htmlspecialchars($data['email']),
+        ':square_for_rent' => htmlspecialchars($data['square']),
+        ':square' => htmlspecialchars($data['square']),
         ':password' => password_hash($password, PASSWORD_BCRYPT),
     ]);
 
