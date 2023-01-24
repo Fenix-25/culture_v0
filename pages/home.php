@@ -40,6 +40,23 @@
                     </tr>
                 <?php endforeach; ?>
             </table>
+            <table class="cultures">
+                <tr>
+                    <th>Culture</th>
+                    <th>Square</th>
+                </tr>
+                <?php foreach ($cultures as $culture): ?>
+                    <tr>
+                        <td>
+                            <?= $culture['name'] ?>
+                        </td>
+                        <td>
+                            <?php $square = squaresSum($culture['id']) ?>
+                            <?= $square['sum(square)'] ? round($square['sum(square)'], 2) : "" ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
         <?php endif; ?>
         <table class="users">
             <tr>
@@ -65,23 +82,6 @@
                     </td>
                     <td>
                         <?= $user['square'] ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-        <table class="cultures">
-            <tr>
-                <th>Culture</th>
-                <th>Square</th>
-            </tr>
-            <?php foreach ($cultures as $culture): ?>
-                <tr>
-                    <td>
-                        <?= $culture['name'] ?>
-                    </td>
-                    <td>
-                        <?php $square = squaresSum($culture['id']) ?>
-                        <?= $square['sum(square)'] ? round($square['sum(square)'], 2) : "" ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

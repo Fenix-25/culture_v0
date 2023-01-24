@@ -13,14 +13,20 @@ function redirect($path = '/')
     exit();
 }
 
-function rdrCondition($condition, $path = '/', $msg = null, $class ="danger", $return = null,)
+function rdrCondition($condition, $path = '/', $msg = null, $return = null, $isAdmin = false)
 {
     if ($condition) {
-        notify($msg, $class);
+//        isAdmin();
+        notify($msg);
         redirect($path);
         return $return;
     }
 }
+
+//function isAdmin():bool
+//{
+//
+//}
 
 function pageNotFound(): void
 {
@@ -44,4 +50,39 @@ function remUserSes(): void
 {
     unset($_SESSION['user']);
     redirect();
+}
+
+function selectRecord($row, $table, $value)
+{
+    $query = "select {$row} from {$table} where id = :id";
+    $select = PDO_Connect::connect()->prepare($query);
+    $select->execute([
+        ':id' => htmlspecialchars($value)
+    ]);
+    return $select->fetch(PDO::FETCH_ASSOC);
+}
+function deleteRecord(string $from, int $id): void
+{
+    $query = "delete from {$from} where id = :id";
+    $query = PDO_Connect::connect()->prepare($query);
+    $query->execute([
+        ':id' => htmlspecialchars($id),
+    ]);
+}
+function updateRecord($table, $value, $setValue, $id): void
+{
+    $update = "update {$table} set {$value} = :new where id = :id";
+    $update = PDO_Connect::connect()->prepare($update);
+    $update->execute([
+        ':new' =>htmlspecialchars($setValue),
+        ':id' => htmlspecialchars($id)
+    ]);
+}
+
+function isEmpty($value): bool
+{
+    if (empty($value)) {
+        return false;
+    }
+    return true;
 }

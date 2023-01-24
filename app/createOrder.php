@@ -11,19 +11,9 @@ function createOrder(array $data)
         redirect($_SERVER['HTTP_REFERER']);
         return false;
     }
-    $squareFromDB = "select square from users where id = :id";
-    $squareFromDB = PDO_Connect::connect()->prepare($squareFromDB);
-    $squareFromDB->execute([
-        ':id' => htmlspecialchars($data['user'])
-    ]);
-    $squareFromDB = $squareFromDB->fetch(PDO::FETCH_ASSOC);
-
-    $update = "update users set square = :new_square where id = :id";
-    $update = PDO_Connect::connect()->prepare($update);
-    $update->execute([
-        ':new_square' => $squareFromDB['square'] - $data['square'],
-        ':id' => $data['user'],
-    ]);
+    $squareFromDB = selectRecord('square', 'users', $data['user']);
+    $square = $squareFromDB['square'] - $data['square'];
+    updateRecord('users','square', $square, $data['user']);
 
     $query = "insert into squares (square, user_id, culture_id) value (:square, :user_id, :culture_id)";
     $order = PDO_Connect::connect()->prepare($query);

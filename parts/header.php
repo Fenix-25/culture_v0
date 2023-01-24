@@ -23,12 +23,9 @@
             <li>
                 <a href="/createOrder">Create order</a>
             </li>
-            <li>
-                <a href="/allData">All data</a>
-            </li>
-            <li>
-                <a href="/factory">Factory</a>
-            </li>
+<!--            <li>-->
+<!--                <a href="/allData">All data</a>-->
+<!--            </li>-->
             <li>
                 <a href="/profile">Profile</a>
             </li>

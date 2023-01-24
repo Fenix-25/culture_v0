@@ -35,10 +35,6 @@ switch (getUrl()) {
         rdrCondition(empty($_SESSION['user']), '/login');
         require_once 'pages/allData.php';
         break;
-    case"factory":
-        rdrCondition(empty($_SESSION['user']), '/login');
-        require_once 'pages/factory.php';
-        break;
     default:
         pageNotFound();
 }

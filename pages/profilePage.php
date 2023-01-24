@@ -1,10 +1,10 @@
 <form action="/" method="post">
     <input type="hidden" name="type" value="profileUpdate">
     Name: <br>
-    <input type="text" value="<?= $_SESSION['user']['name'] ?>" name="name">
+    <input type="text" disabled value="<?= $_SESSION['user']['name'] ?>" name="name">
     <br>
     Email: <br>
-    <input type="email" value="<?= $_SESSION['user']['email'] ?>" name="email">
+    <input type="email" disabled value="<?= $_SESSION['user']['email'] ?>" name="email">
     <br>
     Your old password: <br>
     <input type="password" name="oldPassword"> <br>
