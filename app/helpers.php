@@ -16,17 +16,24 @@ function redirect($path = '/')
 function rdrCondition($condition, $path = '/', $msg = null, $return = null, $isAdmin = false)
 {
     if ($condition) {
-//        isAdmin();
+        if ($isAdmin){
+            isAdmin();
+        }
         notify($msg);
         redirect($path);
         return $return;
     }
 }
 
-//function isAdmin():bool
-//{
-//
-//}
+function isAdmin():bool
+{
+//if user admin allow access
+    if (!$_SESSION['user']['isAdmin']){
+        redirect($_SERVER['HTTP_REFERER']);
+        return false;
+    }
+    return true;
+}
 
 function pageNotFound(): void
 {
@@ -52,12 +59,14 @@ function remUserSes(): void
     redirect();
 }
 
-function selectRecord(string $row, string $table, int $value)
+function selectRecord(string $row, string $table, mixed $value, $where = false, $email = false)
 {
-    $query = "select {$row} from {$table} where id = :id";
+    $query = "select {$row} from {$table}";
+    $query .= $where ? " where id = :value" : "";
+    $query .= $email ? " where email = :value" : "";
     $select = PDO_Connect::connect()->prepare($query);
     $select->execute([
-        ':id' => htmlspecialchars($value)
+        ':value' => htmlspecialchars($value)
     ]);
     return $select->fetch(PDO::FETCH_ASSOC);
 }

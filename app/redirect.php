@@ -9,7 +9,7 @@ switch (getUrl()) {
         break;
     case 'home':
         rdrCondition(empty($_SESSION['user']), '/login');
-        require_once 'pages/home.php';
+        require_once 'pages/userHome.php';
         break;
     case 'login':
         rdrCondition(!empty($_SESSION['user']), '/home');
@@ -24,16 +24,20 @@ switch (getUrl()) {
         require_once 'pages/profilePage.php';
         break;
     case 'createCulture':
-        rdrCondition(empty($_SESSION['user']), '/home');
+        rdrCondition(empty($_SESSION['user']), '/home', isAdmin:true);
         require_once 'pages/culture/createCulture.php';
         break;
     case"createOrder":
-        rdrCondition(empty($_SESSION['user']), '/login');
+        rdrCondition(empty($_SESSION['user']), '/login', isAdmin:true);
         require_once 'pages/user/createOrder.php';
         break;
     case"allData":
-        rdrCondition(empty($_SESSION['user']), '/login');
+        rdrCondition(empty($_SESSION['user']), '/login', isAdmin:true);
         require_once 'pages/allData.php';
+        break;
+    case"admin":
+        rdrCondition(empty($_SESSION['user']), '/login', isAdmin:true);
+        require_once 'pages/home.php';
         break;
     default:
         pageNotFound();

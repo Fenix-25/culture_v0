@@ -11,7 +11,7 @@ function createOrder(array $data)
         redirect($_SERVER['HTTP_REFERER']);
         return false;
     }
-    $squareFromDB = selectRecord('square', 'users', $data['user']);
+    $squareFromDB = selectRecord('square', 'users', $data['user'], where: true);
     $square = $squareFromDB['square'] - $data['square'];
     updateRecord('users', 'square', $square, $data['user']);
     $data = [
@@ -22,5 +22,5 @@ function createOrder(array $data)
     insertRecord('squares', $data);
 
     notify('Order is successfully created', 'success');
-    redirect('/home');
+    redirect('admin');
 }

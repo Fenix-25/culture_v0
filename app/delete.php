@@ -16,8 +16,8 @@ function deleteUser(int $user_id): void
 function deleteSquare(array $data): void
 {
     isEmpty($data);
-    $squareFromSquare = selectRecord('square', 'squares', $data['squareId']);
-    $squareFromUsers = selectRecord('square', 'users', $data['userId']);
+    $squareFromSquare = selectRecord('square', 'squares', $data['squareId'], where: true);
+    $squareFromUsers = selectRecord('square', 'users', $data['userId'], where: true);
     $square = $squareFromSquare['square'] + $squareFromUsers['square'];
     updateRecord('users','square', $square, $data['userId'] );
     deleteRecord('squares', $data['squareId']);

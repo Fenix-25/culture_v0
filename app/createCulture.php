@@ -8,6 +8,5 @@ function createCulture( array $data):bool
     }
     insertRecord('cultures', ['name' => $data['title']]);
     notify('Culture is added', 'success');
-    redirect('/home');
-    return true;
+    redirect('admin');
 }

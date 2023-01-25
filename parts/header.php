@@ -15,17 +15,23 @@
     <div class="nav">
         <ul>
             <li>
-                <a href="/">Home</a>
+                <?php if ($_SESSION['user']['isAdmin']): ?>
+                    <a href="admin">Home</a>
+                <?php else: ?>
+                    <a href="home">Home</a>
+                <?php endif; ?>
             </li>
-            <li>
-                <a href="/createCulture">Create culture</a>
-            </li>
-            <li>
-                <a href="/createOrder">Create order</a>
-            </li>
-<!--            <li>-->
-<!--                <a href="/allData">All data</a>-->
-<!--            </li>-->
+            <?php if ($_SESSION['user']['isAdmin']): ?>
+                <li>
+                    <a href="/createCulture">Create culture</a>
+                </li>
+                <li>
+                    <a href="/createOrder">Create order</a>
+                </li>
+            <?php endif; ?>
+            <!--            <li>-->
+            <!--                <a href="/allData">All data</a>-->
+            <!--            </li>-->
             <li>
                 <a href="/profile">Profile</a>
             </li>

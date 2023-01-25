@@ -13,23 +13,21 @@ function profileUpdate(array $data): void
     newPasswordRecord($data['newPassword']);
     notify('Profile successfully updated!', 'success');
     redirect('/profile');
-    newAuth(3);
+//    newAuth(3);
 }
 
-function newAuth(int $timeSleep): void
-{
-    sleep($timeSleep);
-    unset($_SESSION['user']);
-    notify('Use new data to login', 'success');
-    redirect('/login');
-}
+//function newAuth(int $timeSleep): void
+//{
+//    sleep($timeSleep);
+//    unset($_SESSION['user']);
+//    notify('Use new data to login', 'success');
+//    redirect('/login');
+//}
 
 
 function getUserFromDB($id)
 {
-    $userFromDb = PDO_Connect::connect()->prepare("select * from users where id = :id");
-    $userFromDb->execute([':id' => $id]);
-    return $userFromDb->fetch(PDO::FETCH_ASSOC);
+    return selectRecord('*', 'users',$id, where: true);
 }
 
 function confirmNewPassword(string $password, string $confirm): bool
@@ -62,9 +60,5 @@ function newPasswordRecord(string $password)
     if (empty($password)) {
         return false;
     }
-    $newPassword = PDO_Connect::connect()->prepare("update users set password = :password where id = :user_id");
-    $newPassword->execute([
-        ':password' => password_hash($password, PASSWORD_BCRYPT),
-        ':user_id' => $_SESSION['user']['id'],
-    ]);
+    updateRecord('users','password', password_hash($password, PASSWORD_BCRYPT), $_SESSION['user']['id']);
 }
