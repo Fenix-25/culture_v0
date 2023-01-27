@@ -16,7 +16,7 @@ function redirect($path = '/')
 function rdrCondition($condition, $path = '/', $msg = null, $return = null, $isAdmin = false)
 {
     if ($condition) {
-        if ($isAdmin){
+        if ($isAdmin) {
             isAdmin();
         }
         notify($msg);
@@ -25,10 +25,10 @@ function rdrCondition($condition, $path = '/', $msg = null, $return = null, $isA
     }
 }
 
-function isAdmin():bool
+function isAdmin(): bool
 {
 //if user admin allow access
-    if (!$_SESSION['user']['isAdmin']){
+    if (!$_SESSION['user']['isAdmin']) {
         redirect($_SERVER['HTTP_REFERER']);
         return false;
     }
@@ -59,16 +59,20 @@ function remUserSes(): void
     redirect();
 }
 
-function selectRecord(string $row, string $table, mixed $value, $where = false, $email = false)
+function selectRecord($row, string $table, mixed $value = null, $where = false, $email = false, $isNotSingle = false)
 {
     $query = "select {$row} from {$table}";
     $query .= $where ? " where id = :value" : "";
     $query .= $email ? " where email = :value" : "";
     $select = PDO_Connect::connect()->prepare($query);
-    $select->execute([
-        ':value' => htmlspecialchars($value)
-    ]);
-    return $select->fetch(PDO::FETCH_ASSOC);
+    if (!empty($value)) {
+        $select->execute([
+            ':value' => htmlspecialchars($value)
+        ]);
+    } else {
+        $select->execute();
+    }
+    return $isNotSingle ? $select->fetchAll(PDO::FETCH_ASSOC) : $select->fetch(PDO::FETCH_ASSOC);
 }
 
 function deleteRecord(string $from, int $id): void
@@ -80,7 +84,7 @@ function deleteRecord(string $from, int $id): void
     ]);
 }
 
-function updateRecord(string $table, string $value, float $setValue, int $id): void
+function updateRecord(string $table, string $value, mixed $setValue, int $id): void
 {
     $update = "update {$table} set {$value} = :new where id = :id";
     $update = PDO_Connect::connect()->prepare($update);
@@ -96,7 +100,7 @@ function insertRecord(string $table, array $data): void
     $query = "insert into " . $table .
         "(" . htmlspecialchars(implode(", ", array_keys(($data)))) . ") values (:" . implode(", :", array_keys($data)) . ")";
     $query = PDO_Connect::connect()->prepare($query);
-    foreach ($data as $column => $value){
+    foreach ($data as $column => $value) {
         $query->bindValue(":" . $column, $value);
     }
     $query->execute();

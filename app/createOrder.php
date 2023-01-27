@@ -1,13 +1,13 @@
 <?php
 function createOrder(array $data)
 {
-    if (empty($data['square'])) {
-        notify('Field Square is empty');
+    if (empty($data['user'])) {
+        notify('Field User is empty');
         redirect($_SERVER['HTTP_REFERER']);
         return false;
     }
-    if (empty($data['user'])) {
-        notify('Field User is empty');
+    if (empty($data['square'])) {
+        notify('Field Square is empty');
         redirect($_SERVER['HTTP_REFERER']);
         return false;
     }

@@ -9,7 +9,8 @@
         <?php endforeach; ?>
     </select>
     <label for="select-element">User</label>
-    <select name="user" id="select-element">
+    <select name="user" id="user">
+        <option></option>
         <?php foreach ($users as $user): ?>
             <?php if (!empty($user['square'])): ?>
                 <option value="<?= $user['id'] ?>"
