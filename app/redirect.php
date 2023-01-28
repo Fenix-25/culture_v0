@@ -1,7 +1,6 @@
 <?php
 require_once 'functions.php';
 require_once 'app/controller.php';
-
 switch (getUrl()) {
     case "":
         rdrCondition(!empty($_SESSION['user']), '/home');
@@ -38,6 +37,10 @@ switch (getUrl()) {
     case"admin":
         rdrCondition(empty($_SESSION['user']), '/login', isAdmin:true);
         require_once 'pages/home.php';
+        break;
+    case"dashboard":
+        rdrCondition(empty($_SESSION['user']), '/login', isAdmin:true);
+        require_once 'pages/dashboard.php';
         break;
     default:
         pageNotFound();
