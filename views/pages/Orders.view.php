@@ -1,6 +1,8 @@
-<?php $cultures = cultures(); ?>
-<?php $users = users(); ?>
-<?php $squares = squares(); ?>
+<?php use Culture\DashboardController;
+
+$cultures = DashboardController::cultures();
+$users = DashboardController::users();
+$squares = DashboardController::squares(); ?>
 <div class="table-responsive">
     <table class="table table-striped table-sm">
         <thead>
@@ -36,7 +38,7 @@
                     <?php endforeach; ?>
                 </td>
                 <td>
-                    <?php require 'parts/delete.php'?>
+                    <?php require 'views/parts/delete.php' ?>
                 </td>
             </tr>
         <?php endforeach; ?>

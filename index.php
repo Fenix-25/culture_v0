@@ -1,4 +1,5 @@
 <?php
+namespace Culture;
 if (!session_id()) {
     session_start();
 }
@@ -7,9 +8,9 @@ require_once 'app/PDO_Connect.php';
 require_once 'functions.php';
 
 if (!empty($_POST)){
-    require_once 'app/controller.php';
+    Controller::route(getRequestType());
 }else{
-    require_once 'parts/header.php';
-    require_once 'app/redirect.php';
-    require_once 'parts/footer.php';
+    require_once 'views/parts/header.php';
+    controller('Route');
+    require_once 'views/parts/footer.php';
 }

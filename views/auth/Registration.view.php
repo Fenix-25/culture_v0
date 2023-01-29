@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../assets/signin.css">
+<link rel="stylesheet" href="../../assets/signin.css">
 
 <form method="post" action="/" class="form-signin">
     <input type="hidden" name="type" value="register">

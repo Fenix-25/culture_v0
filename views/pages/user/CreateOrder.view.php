@@ -1,5 +1,6 @@
-<?php $cultures = cultures(); ?>
-<?php $users = users(); ?>
+<?php use Culture\DashboardController;
+$cultures = DashboardController::cultures();
+$users = DashboardController::users(); ?>
 <form action="/" method="post">
     <input type="hidden" value="createOrder" name="type">
     <label for="culture">Culture</label>

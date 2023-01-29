@@ -1,6 +1,8 @@
-<?php $cultures = cultures(); ?>
-<?php $users = users(); ?>
-<?php $squares = squares(); ?>
+<?php
+use Culture\DashboardController;
+$cultures = DashboardController::cultures();
+$users = DashboardController::users();
+$squares = DashboardController::squares(); ?>
 <?php if (count($cultures) > 0): ?>
         <?php if (count($squares) > 0): ?>
         <div class="table-responsive">
@@ -18,7 +20,7 @@
                             <?= $culture['name'] ?>
                         </td>
                         <td>
-                            <?php $square = squaresSum($culture['id']) ?>
+                            <?php $square = DashboardController::squaresSum($culture['id']) ?>
                             <?= $square['sum(square)'] ? round($square['sum(square)'], 2) : "" ?>
                         </td>
                     </tr>

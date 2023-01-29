@@ -53,57 +53,31 @@ function remUserSes(): void
     redirect();
 }
 
-function selectRecord($row, string $table, mixed $value = null, $where = false, $email = false, $isNotSingle = false)
-{
-    $query = "select {$row} from {$table}";
-    $query .= $where ? " where id = :value" : "";
-    $query .= $email ? " where email = :value" : "";
-    $select = PDO_Connect::connect()->prepare($query);
-    if (!empty($value)) {
-        $select->execute([
-            ':value' => htmlspecialchars($value)
-        ]);
-    } else {
-        $select->execute();
-    }
-    return $isNotSingle ? $select->fetchAll(PDO::FETCH_ASSOC) : $select->fetch(PDO::FETCH_ASSOC);
-}
-
-function deleteRecord(string $from, int $id): void
-{
-    $query = "delete from {$from} where id = :id";
-    $query = PDO_Connect::connect()->prepare($query);
-    $query->execute([
-        ':id' => htmlspecialchars($id),
-    ]);
-}
-
-function updateRecord(string $table, string $value, mixed $setValue, int $id): void
-{
-    $update = "update {$table} set {$value} = :new where id = :id";
-    $update = PDO_Connect::connect()->prepare($update);
-    $update->execute([
-        ':new' => htmlspecialchars($setValue),
-        ':id' => htmlspecialchars($id)
-    ]);
-}
-
-
-function insertRecord(string $table, array $data): void
-{
-    $query = "insert into " . $table .
-        "(" . htmlspecialchars(implode(", ", array_keys(($data)))) . ") values (:" . implode(", :", array_keys($data)) . ")";
-    $query = PDO_Connect::connect()->prepare($query);
-    foreach ($data as $column => $value) {
-        $query->bindValue(":" . $column, $value);
-    }
-    $query->execute();
-}
-
 function isEmpty($value): bool
 {
     if (empty($value)) {
         return false;
     }
     return true;
+}
+
+function controller($controller)
+{
+    if ($controller == "Controller") {
+        return require_once "app/{$controller}.php";
+    }
+    if ($controller == "Route") {
+        return require_once "app/{$controller}.php";
+    }
+    return require_once "app/Controllers/{$controller}Controller.php";
+}
+
+function view(string $view, $controller = null, string $folder=null)
+{
+    controller($controller);
+    if ($folder){
+        return require_once "views/{$folder}/{$view}.view.php";
+
+    }
+    return require_once "pages/{$view}.view.php";
 }
