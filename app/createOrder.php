@@ -22,5 +22,5 @@ function createOrder(array $data)
     insertRecord('squares', $data);
 
     notify('Order is successfully created', 'success');
-    redirect('admin');
+    redirect('dashboard');
 }

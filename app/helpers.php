@@ -9,16 +9,14 @@ function getUrl(): string
 
 function redirect($path = '/')
 {
-    header("Location: {$path}");
+    $url = $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'] . "/" . $path;
+    header("Location: {$url}");
     exit();
 }
 
-function rdrCondition($condition, $path = '/', $msg = null, $return = null, $isAdmin = false)
+function rdrCondition($condition, $path = '/', $msg = null, $return = null)
 {
     if ($condition) {
-        if ($isAdmin) {
-            isAdmin();
-        }
         notify($msg);
         redirect($path);
         return $return;
@@ -28,11 +26,7 @@ function rdrCondition($condition, $path = '/', $msg = null, $return = null, $isA
 function isAdmin(): bool
 {
 //if user admin allow access
-    if (!$_SESSION['user']['isAdmin']) {
-        redirect($_SERVER['HTTP_REFERER']);
-        return false;
-    }
-    return true;
+    return isset($_SESSION['user']) ? $_SESSION['user']['isAdmin'] : false;
 }
 
 function pageNotFound(): void

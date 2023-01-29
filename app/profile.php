@@ -12,7 +12,7 @@ function profileUpdate(array $data): void
     //record new password to db
     newPasswordRecord($data['newPassword']);
     notify('Profile successfully updated!', 'success');
-    redirect('/profile');
+    redirect('profile');
 //    newAuth(3);
 }
 
@@ -34,7 +34,7 @@ function confirmNewPassword(string $password, string $confirm): bool
 {
     if ($password !== $confirm) {
         notify('New password and confirmation don\'t match!');
-        redirect('/profile');
+        redirect('profile');
         return false;
     }
     return true;
@@ -44,12 +44,12 @@ function passwordMatches(string $oldPassword, string $passwordFromDB): bool
 {
     if (!password_verify($oldPassword, $passwordFromDB)) {
         notify('Old password is wrong!');
-        redirect('/profile');
+        redirect('profile');
         return false;
     }
     if (!password_verify($oldPassword, $passwordFromDB)) {
         notify('Old and new passwords is matches!');
-        redirect('/profile');
+        redirect('profile');
         return false;
     }
     return true;

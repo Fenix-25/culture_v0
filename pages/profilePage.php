@@ -1,21 +1,33 @@
-<form action="/" method="post">
+<form action="/" method="post" class="form-control-plaintext">
     <input type="hidden" name="type" value="profileUpdate">
-    Name: <br>
-    <input type="text" disabled value="<?= $_SESSION['user']['name'] ?>" name="name">
-    <br>
-    Email: <br>
-    <input type="email" disabled value="<?= $_SESSION['user']['email'] ?>" name="email">
-    <br>
-    Your old password: <br>
-    <input type="password" name="oldPassword"> <br>
-    New password:
-    <br>
-    <input type="password" name="newPassword"> <br>
+    <div class="row">
+        <label>Name:
+            <input class="form-control-plaintext" type="text" readonly value="<?= $_SESSION['user']['name'] ?>"
+                   name="name">
+        </label>
+    </div>
+    <div class="row">
+        <label>Email:
+            <input class="form-control-plaintext" type="email" readonly value="<?= $_SESSION['user']['email'] ?>"
+                   name="email">
+        </label>
+    </div>
+    <div class="row">
+        <label>Your old password:
+            <input type="password" name="oldPassword">
+        </label>
+    </div>
+    <div class="row">
+        <label>New password:
+            <input type="password" name="newPassword">
+        </label>
+    </div>
+    <div class="row">
+        <label>Confirm password:
+            <input type="password" name="confirmPassword">
+        </label>
+    </div>
 
-    Confirm password:
-    <br>
-    <input type="password" name="confirmPassword"> <br>
-
-    <button type="submit"> Save</button>
+    <button class="btn btn-primary" type="submit"> Save</button>
 
 </form>

@@ -16,7 +16,7 @@ function registration(array $data): void
     ];
     insertRecord('users', $data);
     notify('You are now registered', 'success');
-    redirect('/login');
+    redirect('login');
 }
 
 function emailDuplicate($email): bool

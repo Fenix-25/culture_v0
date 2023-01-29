@@ -36,3 +36,18 @@
     bottom: 10px;
     right: 10px;
 }
+
+#sidebarMenu{
+    height: calc(100vh - 85px);
+    position: fixed;
+}
+
+header{
+    position: fixed;
+    z-index: 99;
+    width: 100%;
+}
+
+main, #sidebarMenu{
+    margin-top: 72px !important;
+}
