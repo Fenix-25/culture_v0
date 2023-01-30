@@ -10,7 +10,7 @@ $users = DashboardController::users(); ?>
         <?php endforeach; ?>
     </select>
     <label for="select-element">User</label>
-    <select name="user" id="user">
+    <select name="user" id="select-element">
         <option></option>
         <?php foreach ($users as $user): ?>
             <?php if (!empty($user['square'])): ?>

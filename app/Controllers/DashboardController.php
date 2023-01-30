@@ -4,16 +4,21 @@ namespace Culture;
 
 use PDO;
 use PDO_Connect;
-use Culture\DatabaseController as DB;
+
 
 class DashboardController
 {
+
+    public static function index()
+    {
+        return Helper::view('Dashboard');
+    }
     public static function cultures(): bool|array
     {
         if (empty($_SESSION['user'])) {
             return false;
         }
-        return DB::selectRecord('*','cultures', isNotSingle: true);
+        return DatabaseController::selectRecord('*','cultures', isNotSingle: true);
     }
 
     public static function users(): bool|array
@@ -21,7 +26,7 @@ class DashboardController
         if (empty($_SESSION['user'])) {
             return false;
         }
-        return DB::selectRecord('*', 'users', isNotSingle: true);
+        return DatabaseController::selectRecord('*', 'users', isNotSingle: true);
     }
 
     public static function squares(): bool|array
@@ -29,7 +34,7 @@ class DashboardController
         if (empty($_SESSION['user'])) {
             return false;
         }
-        return DB::selectRecord('*','squares', isNotSingle: true);
+        return DatabaseController::selectRecord('*','squares', isNotSingle: true);
     }
     public static function squaresSum(int $culture_id): bool|array
     {

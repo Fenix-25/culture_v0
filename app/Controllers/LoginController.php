@@ -1,27 +1,31 @@
 <?php
 namespace Culture;
-use Culture\DatabaseController as DB;
+
 class LoginController
 {
-    public function login(array $data)
+    public static function index()
+    {
+        return Helper::view('Login', folder: 'auth');
+    }
+    public static function login(array $data)
     {
         unset($_SESSION['user']);
         if (empty($data['email'])) {
-            notify('Email is empty');
-            redirect($_SERVER['HTTP_REFERER']);
+            Helper::notify('Email is empty');
+            Helper::redirect($_SERVER['HTTP_REFERER']);
         }
-        $userFromDB = DB::selectRecord('*', 'users', $data['email'], email: true);
+        $userFromDB = DatabaseController::selectRecord('*', 'users', $data['email'], email: true);
         if ($userFromDB['email'] !== $data['email'] || !password_verify($data['password'], $userFromDB['password'])) {
-            notify("Don't have records");
-            redirect('login');
+            Helper::notify("Don't have records");
+            Helper::redirect('login');
             return false;
         }
         $_SESSION['user'] = $userFromDB;
-        notify("Welcome {$_SESSION['user']['name']}", 'success');
-        if (isAdmin()) {
-            redirect('admin');
+        Helper::notify("Welcome {$_SESSION['user']['name']}", 'success');
+        if (Helper::isAdmin()) {
+            Helper::redirect('dashboard');
         } else {
-            redirect('home');
+            Helper::redirect('home');
 
         }
     }

@@ -48,6 +48,10 @@ header{
     width: 100%;
 }
 
+/*.container-fluid{*/
+/*    padding-top: 72px;*/
+/*}*/
+
 main, #sidebarMenu{
-    margin-top: 72px !important;
+    padding-top: 80px !important;
 }

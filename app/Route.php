@@ -1,52 +1,28 @@
 <?php
-switch (getUrl()) {
-    case "":
-        view('index', folder: 'pages');
-        break;
-    case 'home':
-        rdrCondition(empty($_SESSION['user']), 'login');
-        require_once 'views/pages/userHome.php';
-        break;
-    case 'login':
-        rdrCondition(!empty($_SESSION['user']), 'home');
-        view('Login', 'Login','auth');
-        break;
-    case 'register':
-        rdrCondition(!empty($_SESSION['user']), 'home');
-        view('Registration', 'Registration', 'auth');
-        break;
-    case 'profile':
-        rdrCondition(empty($_SESSION['user']), 'login');
-        view('Profile', 'Profile');
-        break;
-    case 'createCulture':
-        rdrCondition(empty($_SESSION['user']['isAdmin']), 'login');
-        view('CreateCulture','Culture','culture');
-        break;
-    case"allData":
-        rdrCondition(empty($_SESSION['user']['isAdmin']), 'login');
-        require_once 'pages/allData.php';
-        break;
-    case"admin":
-        rdrCondition(empty($_SESSION['user']['isAdmin']), 'login');
-        require_once 'views/pages/home.php';
-        break;
-    case"dashboard":
-        rdrCondition(empty($_SESSION['user']['isAdmin']), 'login');
-        view('Dashboard', folder: 'pages');
-        break;
-    case"orders":
-        rdrCondition(empty($_SESSION['user']['isAdmin']), '/login');
-        view('Orders', 'Order','pages');
-        break;
-    case"createOrder":
-        rdrCondition(empty($_SESSION['user']['isAdmin']), 'login');
-        view('CreateOrder', 'Order', 'pages/user');
-        break;
-    case"customers":
-        rdrCondition(empty($_SESSION['user']['isAdmin']), '/login');
-        require_once 'pages/customers.php';
-        break;
-    default:
-        pageNotFound();
-}
+
+use Culture\CultureController;
+use Culture\CustomersController;
+use Culture\DashboardController;
+use Culture\FertilizeController;
+use Culture\Helper;
+use Culture\IndexController;
+use Culture\LoginController;
+use Culture\OrderController;
+use Culture\ProfileController;
+use Culture\RegistrationController;
+
+match (Helper::getUrl()) {
+    '' => Helper::rdrCondition(Helper::emptyUserSession(), return: IndexController::index()),
+    'login' => Helper::rdrCondition(!empty($_SESSION['user']), 'home', return: LoginController::index()),
+    'register' => Helper::rdrCondition(!empty($_SESSION['user']), 'home', return: RegistrationController::index()),
+    'profile' => Helper::rdrCondition(Helper::emptyUserSession(), return: ProfileController::index()),
+    'createCulture' => Helper::rdrCondition(Helper::emptyUserSession(), return: CultureController::index()),
+    'allData' => Helper::rdrCondition(Helper::emptyAdminSession(), return: Helper::view('allData')),
+    'fertilize' => Helper::rdrCondition(Helper::emptyAdminSession(), return: FertilizeController::index()),
+    'dashboard' => Helper::rdrCondition(Helper::emptyAdminSession(), return: DashboardController::index()),
+    'orders' => Helper::rdrCondition(Helper::emptyAdminSession(), return: OrderController::index()),
+    'createOrder' => Helper::rdrCondition(Helper::emptyAdminSession(), return: OrderController::create()),
+    'customers' =>Helper::rdrCondition(Helper::emptyAdminSession(), return: CustomersController::index()),
+    'home' =>Helper::rdrCondition(Helper::emptyUserSession(), return: require_once 'views/userHome.php' ),
+    default => Helper::pageNotFound(),
+};

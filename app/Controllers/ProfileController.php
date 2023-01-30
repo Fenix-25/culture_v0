@@ -1,64 +1,65 @@
 <?php
-function profileUpdate(array $data): void
+
+namespace Culture;
+
+class ProfileController
 {
-    //get user from db
-    $userFromDb = getUserFromDB($_SESSION['user']['id']);
-    //check match for confirm new password
-    confirmNewPassword($data['newPassword'], $data['confirmPassword']);
-    // check the password match with old
-    if (!empty($data['oldPassword'])) {
-        passwordMatches($data['oldPassword'], $userFromDb['password']);
+    public static function index()
+    {
+        return Helper::view('Profile');
     }
-    //record new password to db
-    newPasswordRecord($data['newPassword']);
-    notify('Profile successfully updated!', 'success');
-    redirect('profile');
-//    newAuth(3);
-}
-
-//function newAuth(int $timeSleep): void
-//{
-//    sleep($timeSleep);
-//    unset($_SESSION['user']);
-//    notify('Use new data to login', 'success');
-//    redirect('/login');
-//}
-
-
-function getUserFromDB($id)
-{
-    return selectRecord('*', 'users',$id, where: true);
-}
-
-function confirmNewPassword(string $password, string $confirm): bool
-{
-    if ($password !== $confirm) {
-        notify('New password and confirmation don\'t match!');
-        redirect('profile');
-        return false;
+    public static function profileUpdate(array $data): void
+    {
+        //get user from db
+        $userFromDb = self::getUserFromDB($_SESSION['user']['id']);
+        //check match for confirm new password
+        self::confirmNewPassword($data['newPassword'], $data['confirmPassword']);
+        // check the password match with old
+        if (!empty($data['oldPassword'])) {
+            self::passwordMatches($data['oldPassword'], $userFromDb['password']);
+        }
+        //record new password to db
+        self::newPasswordRecord($data['newPassword']);
+        Helper::notify('Profile successfully updated!', 'success');
+        Helper::remUserSes();
+        Helper::redirect('login');
     }
-    return true;
-}
 
-function passwordMatches(string $oldPassword, string $passwordFromDB): bool
-{
-    if (!password_verify($oldPassword, $passwordFromDB)) {
-        notify('Old password is wrong!');
-        redirect('profile');
-        return false;
+    protected static function getUserFromDB($id)
+    {
+        return DatabaseController::selectRecord('*', 'users',$id, where: true);
     }
-    if (!password_verify($oldPassword, $passwordFromDB)) {
-        notify('Old and new passwords is matches!');
-        redirect('profile');
-        return false;
-    }
-    return true;
-}
 
-function newPasswordRecord(string $password)
-{
-    if (empty($password)) {
-        return false;
+    protected static function confirmNewPassword(string $password, string $confirm): bool
+    {
+        if ($password !== $confirm) {
+            Helper::notify('New password and confirmation don\'t match!');
+            Helper::redirect('profile');
+            return false;
+        }
+        return true;
     }
-    updateRecord('users','password', password_hash($password, PASSWORD_BCRYPT), $_SESSION['user']['id']);
+
+    protected static function passwordMatches(string $oldPassword, string $passwordFromDB): bool
+    {
+        if (!password_verify($oldPassword, $passwordFromDB)) {
+            Helper::notify('Old password is wrong!');
+            Helper::redirect('profile');
+            return false;
+        }
+        if (!password_verify($oldPassword, $passwordFromDB)) {
+            Helper::notify('Old and new passwords is matches!');
+            Helper::redirect('profile');
+            return false;
+        }
+        return true;
+    }
+
+    protected static function newPasswordRecord(string $password)
+    {
+        if (empty($password)) {
+            return false;
+        }
+        DatabaseController::updateRecord('users','password', password_hash($password, PASSWORD_BCRYPT), $_SESSION['user']['id']);
+    }
 }

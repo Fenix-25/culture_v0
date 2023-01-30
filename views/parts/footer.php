@@ -7,12 +7,11 @@
         <div class="toast-body">
             <?= $_SESSION['notify']['msg'] ?>
         </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        <button type="submit" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../../assets/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         <?php if (!empty($_SESSION['notify']['msg'])): ?>
@@ -21,5 +20,6 @@
     });
 </script>
 <?php unset($_SESSION['notify']['msg']); ?>
+<script src="../../assets/main.js"></script>
 </body>
 </html>

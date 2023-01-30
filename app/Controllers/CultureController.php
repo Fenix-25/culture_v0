@@ -2,19 +2,28 @@
 
 namespace Culture;
 
-use Culture\DatabaseController as DB;
-
 class CultureController
 {
-    public function createCulture( array $data)
+    public static function index()
+    {
+        return Helper::view('CreateCulture', folder: 'culture');
+    }
+    public static function createCulture( array $data)
     {
         if (empty($data['title'])) {
-            notify('Field is empty');
-            redirect($_SERVER['HTTP_REFERER']);
+            Helper::notify('Field is empty');
+            Helper::redirect('createCulture');
             return false;
         }
-        DB::insertRecord('cultures', ['name' => $data['title']]);
-        notify('Culture is added', 'success');
-        redirect('admin');
+        DatabaseController::insertRecord('cultures', ['name' => $data['title']]);
+        Helper::notify('Culture is added', 'success');
+        Helper::redirect('dashboard');
+    }
+    public static function deleteCulture(int $culture_id): void
+    {
+        Helper::isEmpty($culture_id);
+        DatabaseController::deleteRecord('cultures', $culture_id);
+        Helper::notify('Culture is deleted');
+        Helper::redirect('allData');
     }
 }

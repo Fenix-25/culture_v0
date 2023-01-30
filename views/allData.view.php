@@ -1,6 +1,8 @@
-<?php $cultures = cultures(); ?>
-<?php $users = users(); ?>
-<?php $squares = squares(); ?>
+<?php
+use Culture\DashboardController;
+$cultures = DashboardController::cultures();
+$users = DashboardController::users();
+$squares = DashboardController::squares(); ?>
 <h4>Cultures</h4>
 <div class="row">
     <?php foreach ($cultures as $culture): ?>
@@ -8,7 +10,7 @@
             <form action="/" method="post">
                 <input type="hidden" name="type" value="deleteCulture">
                 <input type="hidden" name="cultureId" value="<?= $culture['id'] ?>">
-                <button type="button" class="btn btn-outline-danger">
+                <button type="submit" class="btn btn-outline-danger">
                     <?= $culture['name'] ?>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-trash" viewBox="0 0 16 16">
@@ -28,7 +30,7 @@
             <form action="/" method="post">
                 <input type="hidden" name="type" value="deleteUser">
                 <input type="hidden" name="userId" value="<?= $user['id'] ?>">
-                <button type="button" class="btn btn-outline-danger">
+                <button type="submit" class="btn btn-outline-danger">
                     <?= $user['name'] . " " . $user['surname'] ?>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-trash" viewBox="0 0 16 16">
@@ -47,7 +49,7 @@
                 <input type="hidden" name="type" value="deleteSquare">
                 <input type="hidden" name="userId" value="<?= $square['user_id'] ?>">
                 <input type="hidden" name="squareId" value="<?= $square['id'] ?>">
-                <button type="button" class="btn btn-outline-danger">
+                <button type="submit" class="btn btn-outline-danger">
                     <?= $square['square'] ?>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-trash" viewBox="0 0 16 16">
