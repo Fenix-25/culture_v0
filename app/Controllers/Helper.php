@@ -18,13 +18,19 @@ class Helper
         exit();
     }
 
-    public static function rdrCondition($condition, $path = 'login', $return = null)
+//    public static function rdrCondition($condition, $path = 'login', $return = null)
+//    {
+//        if ($condition) {
+//            self::redirect($path);
+//            return $return;
+//        }
+//        return false;
+//    }
+    public static function rdrCondition($condition, $path = 'login'): void
     {
         if ($condition) {
             self::redirect($path);
-            return $return;
         }
-        return false;
     }
 
     public static function isAdmin(): bool

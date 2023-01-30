@@ -21,7 +21,8 @@ if (!empty($_SESSION['user'])): ?>
                 <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small align-items-center">
                     <?php if (!$_SESSION['user']['isAdmin']): ?>
                         <li>
-                        <a href="/home" class="nav-link <?= Helper::getUrl() == 'home' ? "text-secondary" : "text-white" ?>">
+                        <a href="/home"
+                           class="nav-link <?= Helper::getUrl() == 'home' ? "text-secondary" : "text-white" ?>">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-house d-block mx-auto mb-1" viewBox="0 0 16 16">
                                 <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
@@ -29,7 +30,8 @@ if (!empty($_SESSION['user'])): ?>
                             Home
                         </a>
                     <?php else: ?>
-                        <a href="/fertilize" class="nav-link <?= Helper::getUrl() == 'fertilize' ? "text-secondary" : "text-white" ?>">
+                        <a href="/fertilize"
+                           class="nav-link <?= Helper::getUrl() == 'fertilize' ? "text-secondary" : "text-white" ?>">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-house d-block mx-auto mb-1" viewBox="0 0 16 16">
                                 <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
@@ -69,38 +71,39 @@ if (!empty($_SESSION['user'])): ?>
                                 Products
                             </a>
                         </li>
-                    <?php endif; ?>
-                    <li>
-                        <a href="/customers"
-                           class="nav-link <?= Helper::getUrl() == 'customers' ? "text-secondary" : "text-white" ?>">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-person-circle d-block mx-auto mb-1" viewBox="0 0 16 16">
-                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                                <path fill-rule="evenodd"
-                                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                            </svg>
-                            Customers
-                        </a>
-                    </li>
-                        <li class="dropdown text-end">
-                            <a href="#" class="d-block text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
-                               aria-expanded="true">
-                                <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                        <li>
+                            <a href="/customers"
+                               class="nav-link <?= Helper::getUrl() == 'customers' ? "text-secondary" : "text-white" ?>">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-person-circle d-block mx-auto mb-1" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                    <path fill-rule="evenodd"
+                                          d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                                </svg>
+                                Customers
                             </a>
-                            <ul class="dropdown-menu text-small" data-popper-placement="bottom-start"
-                                style="position: absolute; inset: 0 auto auto 0; margin: 0px; transform: translate(0px, 34px);">
-                                <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <form action="/" method="post">
-                                        <input type="hidden" name="type" value="logout">
-                                        <input class="dropdown-item" type="submit" value="Sign out">
-                                    </form>
-                                </li>
-                            </ul>
                         </li>
+                    <?php endif; ?>
+                    <li class="dropdown text-end">
+                        <a href="#" class="d-block text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
+                           aria-expanded="true">
+                            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32"
+                                 class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu text-small" data-popper-placement="bottom-start"
+                            style="position: absolute; inset: 0 auto auto 0; margin: 0px; transform: translate(0px, 34px);">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <form action="/" method="post">
+                                    <input type="hidden" name="type" value="logout">
+                                    <input class="dropdown-item" type="submit" value="Sign out">
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
 
                 </ul>
 
@@ -126,9 +129,12 @@ if (!empty($_SESSION['user'])): ?>
 <div class="container-fluid">
     <div class="row">
         <?php if (!empty($_SESSION['user'])): ?>
-            <?php if ($_SESSION['user']['isAdmin']): ?>
-                <?php require_once 'views/parts/nav.php' ?>
-            <?php endif; ?>
-        <?php endif; ?>
+        <?php if ($_SESSION['user']['isAdmin']): ?>
+        <?php require_once 'views/parts/nav.php' ?>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <?php endif; ?>
+            <?php else: ?>
+            <main class="col-md-12">
+                <?php endif; ?>
+
 
