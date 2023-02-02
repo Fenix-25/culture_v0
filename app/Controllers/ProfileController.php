@@ -8,19 +8,22 @@ class ProfileController extends Controller
     {
         return self::view('Profile');
     }
-    public static function profileUpdate(array $data): void
+    public static function profileUpdate(array $request): void
     {
+        if (self::emptyFieldsErrorMsg($request)) {
+            self::redirect('profile');
+        }
         //get user from db
         $userFromDb = self::getUserFromDB($_SESSION['user']['id']);
         //check match for confirm new password
-        self::confirmNewPassword($data['newPassword'], $data['confirmPassword']);
+        self::confirmNewPassword($request['newPassword'], $request['confirmPassword']);
         // check the password match with old
-        if (!empty($data['oldPassword'])) {
-            self::passwordMatches($data['oldPassword'], $userFromDb['password']);
+        if (!empty($request['oldPassword'])) {
+            self::passwordMatches($request['oldPassword'], $userFromDb['password']);
         }
         //record new password to db
-        self::newPasswordRecord($data['newPassword']);
-        self::notify('Profile successfully updated!', 'success');
+        self::newPasswordRecord($request['newPassword']);
+        self::notify('Profile successfully updated! Use new password for login', 'success');
         self::remUserSes();
         self::redirect('login');
     }
@@ -55,11 +58,12 @@ class ProfileController extends Controller
         return true;
     }
 
-    protected static function newPasswordRecord(string $password)
+    protected static function newPasswordRecord(string $password): bool
     {
         if (empty($password)) {
             return false;
         }
-        DatabaseController::updateRecord('users','password', password_hash($password, PASSWORD_BCRYPT), $_SESSION['user']['id']);
+        DatabaseController::updateRecord('users','password', password_hash($password, PASSWORD_BCRYPT),"id = '{$_SESSION['user']['id']}'");
+        return true;
     }
 }

@@ -21,24 +21,16 @@ if (!empty($_SESSION['user'])): ?>
                 <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small align-items-center">
                     <?php if (!$_SESSION['user']['isAdmin']): ?>
                         <li>
-                        <a href="/home"
-                           class="nav-link <?= Controller::getUrl() == 'home' ? "text-secondary" : "text-white" ?>">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-house d-block mx-auto mb-1" viewBox="0 0 16 16">
-                                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
-                            </svg>
-                            Home
-                        </a>
-                    <?php else: ?>
-                        <a href="/fertilize"
-                           class="nav-link <?= Controller::getUrl() == 'fertilize' ? "text-secondary" : "text-white" ?>">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-bag d-block mx-auto mb-1" viewBox="0 0 16 16">
-                                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
-                            </svg>
-                            Fertilize
-                        </a>
+                            <a href="/home"
+                               class="nav-link <?= Controller::getUrl() == 'home' ? "text-secondary" : "text-white" ?>">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-house d-block mx-auto mb-1" viewBox="0 0 16 16">
+                                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
+                                </svg>
+                                Home
+                            </a>
                         </li>
+                    <?php else: ?>
                         <li>
                             <a href="/dashboard"
                                class="nav-link <?= Controller::getUrl() == 'dashboard' ? "text-secondary" : "text-white" ?>">
@@ -49,6 +41,16 @@ if (!empty($_SESSION['user'])): ?>
                                           d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z"/>
                                 </svg>
                                 Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/fertilize"
+                               class="nav-link <?= Controller::getUrl() == 'fertilize' ? "text-secondary" : "text-white" ?>">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-bag d-block mx-auto mb-1" viewBox="0 0 16 16">
+                                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                                </svg>
+                                Fertilize
                             </a>
                         </li>
                         <li>
@@ -91,7 +93,7 @@ if (!empty($_SESSION['user'])): ?>
                                  class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small" data-popper-placement="bottom-start"
-                            style="position: absolute; inset: 0 auto auto 0; margin: 0px; transform: translate(0px, 34px);">
+                            style="position: absolute; inset: 0 auto auto 0; margin: 0; transform: translate(0px, 34px);">
                             <li><a class="dropdown-item" href="/profile">Profile</a></li>
                             <li>
                                 <hr class="dropdown-divider">

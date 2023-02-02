@@ -10,7 +10,9 @@ class CultureController extends Controller
     }
     public static function createCulture( array $request)
     {
-        self::emptyFieldsErrorMsg($request, 'create-culture');
+        if (self::emptyFieldsErrorMsg($request)) {
+            self::redirect('create-culture');
+        }
         DatabaseController::insertRecord('cultures', ['name' => $request['title']]);
         self::notify('Culture is added', 'success');
         self::redirect('dashboard');

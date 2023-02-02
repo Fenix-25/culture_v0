@@ -14,10 +14,12 @@ class OrderController extends Controller
     }
     public static function createOrder(array $request)
     {
-        self::emptyFieldsErrorMsg($request);
-        $orderFromDB = DatabaseController::selectRecord('square', 'users', "");
-        $order = $orderFromDB['square'] - $request['square'];
-        DatabaseController::updateRecord('users', 'square', $order, $request['user']);
+        if (self::emptyFieldsErrorMsg($request)) {
+            self::redirect('create-order');
+        }
+        $orderFromDB = DatabaseController::selectRecord('square', 'users', "id = '{$request['user']}'");
+        $square = $orderFromDB['square'] - $request['square'];
+        DatabaseController::updateRecord('users', 'square', $square, "id = '{$request['user']}'");
         $data = [
             'square' => $request['square'],
             'user_id' => $request['user'],

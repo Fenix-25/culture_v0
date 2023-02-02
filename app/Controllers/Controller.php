@@ -83,5 +83,14 @@ class Controller
         return false;
     }
 
+    public static function accessForAdmin(): bool
+    {
+        if (!empty($_SESSION['user'])){
+            if (!$_SESSION['user']['isAdmin']){
+                return false;
+            }
+        }
+        return true;
+    }
 
 }
