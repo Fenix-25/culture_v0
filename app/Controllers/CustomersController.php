@@ -2,11 +2,11 @@
 
 namespace Culture;
 
-class CustomersController
+class CustomersController extends Controller
 {
     public static function index()
     {
-        return Helper::view('Customers');
+        return self::view('Customers');
     }
 
 }

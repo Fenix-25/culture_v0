@@ -2,7 +2,7 @@
 
 $cultures = DashboardController::cultures();
 $users = DashboardController::users();
-$squares = DashboardController::squares(); ?>
+$orders =DashboardController::orders(); ?>
 <div class="table-responsive">
     <table class="table table-striped table-sm">
         <thead>
@@ -15,24 +15,24 @@ $squares = DashboardController::squares(); ?>
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($squares as $square): ?>
+        <?php foreach ($orders  as $order): ?>
             <tr>
                 <td>
-                    <?= $square['id'] ?>
+                    <?= $order['id'] ?>
                 </td>
                 <td>
                     <?php foreach ($users as $user): ?>
-                        <?php if ($square['user_id'] == $user['id']): ?>
+                        <?php if ($order['user_id'] == $user['id']): ?>
                             <?= $user['name'] . " " . $user['surname'] ?>
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </td>
                 <td>
-                    <?= $square['square'] ?>
+                    <?= $order['square'] ?>
                 </td>
                 <td>
                     <?php foreach ($cultures as $culture): ?>
-                        <?php if ($square['culture_id'] == $culture['id']): ?>
+                        <?php if ($order['culture_id'] == $culture['id']): ?>
                             <?= $culture['name'] ?>
                         <?php endif; ?>
                     <?php endforeach; ?>

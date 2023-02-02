@@ -31,10 +31,10 @@
     outline: 0;
 }
 
-.toast{
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
+.toast-custom{
+    position: absolute !important   ;
+    bottom: 10px !important ;
+    right: 10px !important  ;
 }
 
 #sidebarMenu{
@@ -47,10 +47,6 @@ header{
     z-index: 99;
     width: 100%;
 }
-
-/*.container-fluid{*/
-/*    padding-top: 72px;*/
-/*}*/
 
 main, #sidebarMenu{
     padding-top: 80px !important;

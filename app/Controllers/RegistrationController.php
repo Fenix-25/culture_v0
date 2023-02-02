@@ -2,43 +2,45 @@
 
 namespace Culture;
 
-class RegistrationController
+class RegistrationController extends Controller
 {
     public static function index()
     {
-        return Helper::view('Registration', folder: 'auth');
+        return self::view('Registration', folder: 'auth');
     }
-    public static function registration(array $data): void
+    public static function registration(array $request): void
     {
-        $password = htmlspecialchars($data['password']);
-        $confirmPassword = htmlspecialchars($data['confirmPassword']);
-        self::emailDuplicate($data['email']);
+        if (self::emptyFieldsErrorMsg($request)) {
+            self::redirect('register');
+        }
+        $password = htmlspecialchars($request['password']);
+        $confirmPassword = htmlspecialchars($request['confirmPassword']);
+        self::emailDuplicate($request['email']);
         self::pwdCheck($password, $confirmPassword);
         $data = [
-            'name' => htmlspecialchars($data['name']),
-            'surname' => htmlspecialchars($data['surname']),
-            'phone' => htmlspecialchars($data['phone']),
-            'email' => htmlspecialchars($data['email']),
-            'square_for_rent' => htmlspecialchars($data['square']),
-            'square' => htmlspecialchars($data['square']),
+            'name' => htmlspecialchars($request['name']),
+            'surname' => htmlspecialchars($request['surname']),
+            'phone' => htmlspecialchars($request['phone']),
+            'email' => htmlspecialchars($request['email']),
+            'square_for_rent' => htmlspecialchars($request['square']),
+            'square' => htmlspecialchars($request['square']),
             'password' => password_hash($password, PASSWORD_BCRYPT),
         ];
         DatabaseController::insertRecord('users', $data);
-        Helper::notify('You are now registered', 'success');
-        Helper::redirect('login');
+        self::notify('You are now registered', 'success');
+        self::redirect('login');
     }
 
     protected static function emailDuplicate($email): bool
     {
-        $issetEmail = DatabaseController::selectRecord('email', 'users', $email, email: true);
-        Helper::rdrCondition(empty($email), '/register', 'Email is empty', return: 'false');
-        Helper::rdrCondition($issetEmail['email'] === $email, '/register', 'Email is taken', return: 'false');
+        $issetEmail = DatabaseController::selectRecord('email', 'users', "(email = '$email'");
+        self::rdrCondition($issetEmail['email'] === $email, '/register', 'Email is taken' );
         return true;
     }
 
     protected static function pwdCheck($password, $confirmPassword): bool
     {
-        Helper::rdrCondition($confirmPassword !== $password, '/register', 'password don\'t match', return: 'false');
+        self::rdrCondition($confirmPassword !== $password, '/register', 'password don\'t match');
         return true;
     }
 }

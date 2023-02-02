@@ -2,39 +2,30 @@
 
 namespace Culture;
 
-class OrderController
+class OrderController extends Controller
 {
     public static function index()
     {
-        return Helper::view('Orders');
+        return self::view('Orders');
     }
     public static function create()
     {
-        return Helper::view('CreateOrder', folder: 'user');
+        return self::view('CreateOrder', folder: 'user');
     }
-    public static function createOrder(array $data)
+    public static function createOrder(array $request)
     {
-        if (empty($data['user'])) {
-            Helper::notify('Field User is empty');
-            Helper::redirect('createOrder');
-            return false;
-        }
-        if (empty($data['square'])) {
-            Helper::notify('Field SquareController is empty');
-            Helper::redirect('createOrder');
-            return false;
-        }
-        $squareFromDB = DatabaseController::selectRecord('square', 'users', $data['user'], where: true);
-        $square = $squareFromDB['square'] - $data['square'];
-        DatabaseController::updateRecord('users', 'square', $square, $data['user']);
+        self::emptyFieldsErrorMsg($request);
+        $orderFromDB = DatabaseController::selectRecord('square', 'users', "");
+        $order = $orderFromDB['square'] - $request['square'];
+        DatabaseController::updateRecord('users', 'square', $order, $request['user']);
         $data = [
-            'square' => $data['square'],
-            'user_id' => $data['user'],
-            'culture_id' => $data['culture'],
+            'square' => $request['square'],
+            'user_id' => $request['user'],
+            'culture_id' => $request['culture'],
         ];
-        DatabaseController::insertRecord('squares', $data);
+        DatabaseController::insertRecord('orders', $data);
 
-        Helper::notify('Order is successfully created', 'success');
-        Helper::redirect('orders');
+        self::notify('Order is successfully created', 'success');
+        self::redirect('orders');
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Culture;
 
-class IndexController
+class IndexController extends Controller
 {
     public static function index()
     {
-        return Helper::view('Index');
+        return self::view('Index');
     }
 
 }

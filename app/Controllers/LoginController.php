@@ -1,31 +1,30 @@
 <?php
 namespace Culture;
 
-class LoginController
+class LoginController extends Controller
 {
     public static function index()
     {
-        return Helper::view('Login', folder: 'auth');
+        return self::view('Login', folder: 'auth');
     }
-    public static function login(array $data)
+    public static function login(array $request)
     {
-        unset($_SESSION['user']);
-        if (empty($data['email'])) {
-            Helper::notify('Email is empty');
-            Helper::redirect($_SERVER['HTTP_REFERER']);
+        if (self::emptyFieldsErrorMsg($request)) {
+            self::redirect('login');
         }
-        $userFromDB = DatabaseController::selectRecord('*', 'users', $data['email'], email: true);
-        if ($userFromDB['email'] !== $data['email'] || !password_verify($data['password'], $userFromDB['password'])) {
-            Helper::notify("Don't have records");
-            Helper::redirect('login');
+        unset($_SESSION['user']);
+        $userFromDB = DatabaseController::selectRecord('*', 'users', "email = '{$request['email']}'");
+        if ($userFromDB['email'] !== $request['email'] || !password_verify($request['password'], $userFromDB['password'])) {
+            self::notify("Don't have records");
+            self::redirect('login');
             return false;
         }
         $_SESSION['user'] = $userFromDB;
-        Helper::notify("Welcome {$_SESSION['user']['name']}", 'success');
-        if (Helper::isAdmin()) {
-            Helper::redirect('dashboard');
+        self::notify("Welcome {$_SESSION['user']['name']}", 'success');
+        if (self::isAdmin()) {
+            self::redirect('dashboard');
         } else {
-            Helper::redirect('home');
+            self::redirect('home');
 
         }
     }

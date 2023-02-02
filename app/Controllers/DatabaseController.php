@@ -1,24 +1,19 @@
 <?php
+
 namespace Culture;
+
 use PDO;
 use PDO_Connect;
 
-class DatabaseController
+class DatabaseController extends Controller
 {
-    public static function selectRecord($row, string $table, mixed $value = null, $where = false, $email = false, $isNotSingle = false)
+    public static function selectRecord($row, string $table, $condition = "", $isSingle = true)
     {
         $query = "select {$row} from {$table}";
-        $query .= $where ? " where id = :value" : "";
-        $query .= $email ? " where email = :value" : "";
+        $query .= $condition ? " where {$condition}" : "";
         $select = PDO_Connect::connect()->prepare($query);
-        if (!empty($value)) {
-            $select->execute([
-                ':value' => htmlspecialchars($value)
-            ]);
-        } else {
-            $select->execute();
-        }
-        return $isNotSingle ? $select->fetchAll(PDO::FETCH_ASSOC) : $select->fetch(PDO::FETCH_ASSOC);
+        $select->execute();
+        return $isSingle ? $select->fetch(PDO::FETCH_ASSOC) : $select->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function deleteRecord(string $from, int $id): void
@@ -30,13 +25,12 @@ class DatabaseController
         ]);
     }
 
-    public static function updateRecord(string $table, string $value, mixed $setValue, int $id): void
+    public static function updateRecord(string $table, string $colum, mixed $setValue, $condition): void
     {
-        $update = "update {$table} set {$value} = :new where id = :id";
+        $update = "update {$table} set {$colum} = :new where {$condition}";
         $update = PDO_Connect::connect()->prepare($update);
         $update->execute([
             ':new' => htmlspecialchars($setValue),
-            ':id' => htmlspecialchars($id)
         ]);
     }
 

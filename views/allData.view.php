@@ -2,7 +2,7 @@
 use Culture\DashboardController;
 $cultures = DashboardController::cultures();
 $users = DashboardController::users();
-$squares = DashboardController::squares(); ?>
+$orders =DashboardController::orders(); ?>
 <h4>Cultures</h4>
 <div class="row">
     <?php foreach ($cultures as $culture): ?>
@@ -43,14 +43,14 @@ $squares = DashboardController::squares(); ?>
         </div>
     <?php endforeach; ?>
     <h4>Square</h4>
-    <?php foreach ($squares as $square): ?>
+    <?php foreach ($orders  as $order): ?>
         <div class="col-3 mb-3">
             <form action="/" method="post">
                 <input type="hidden" name="type" value="deleteSquare">
-                <input type="hidden" name="userId" value="<?= $square['user_id'] ?>">
-                <input type="hidden" name="squareId" value="<?= $square['id'] ?>">
+                <input type="hidden" name="userId" value="<?= $order['user_id'] ?>">
+                <input type="hidden" name="orderId" value="<?= $order['id'] ?>">
                 <button type="submit" class="btn btn-outline-danger">
-                    <?= $square['square'] ?>
+                    <?= $order['square'] ?>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-trash" viewBox="0 0 16 16">
                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>

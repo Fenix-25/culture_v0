@@ -2,7 +2,7 @@
 use Culture\DashboardController;
 $cultures = DashboardController::cultures();
 $users = DashboardController::users();
-$squares = DashboardController::squares(); ?>
+$orders =DashboardController::orders(); ?>
 <div class="table-responsive">
     <table class="table table-striped table-sm">
         <thead>

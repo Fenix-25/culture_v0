@@ -2,11 +2,11 @@
 
 namespace Culture;
 
-class ProfileController
+class ProfileController extends Controller
 {
     public static function index()
     {
-        return Helper::view('Profile');
+        return self::view('Profile');
     }
     public static function profileUpdate(array $data): void
     {
@@ -20,21 +20,21 @@ class ProfileController
         }
         //record new password to db
         self::newPasswordRecord($data['newPassword']);
-        Helper::notify('Profile successfully updated!', 'success');
-        Helper::remUserSes();
-        Helper::redirect('login');
+        self::notify('Profile successfully updated!', 'success');
+        self::remUserSes();
+        self::redirect('login');
     }
 
     protected static function getUserFromDB($id)
     {
-        return DatabaseController::selectRecord('*', 'users',$id, where: true);
+        return DatabaseController::selectRecord('*', 'users',"id = $id");
     }
 
     protected static function confirmNewPassword(string $password, string $confirm): bool
     {
         if ($password !== $confirm) {
-            Helper::notify('New password and confirmation don\'t match!');
-            Helper::redirect('profile');
+            self::notify('New password and confirmation don\'t match!');
+            self::redirect('profile');
             return false;
         }
         return true;
@@ -43,13 +43,13 @@ class ProfileController
     protected static function passwordMatches(string $oldPassword, string $passwordFromDB): bool
     {
         if (!password_verify($oldPassword, $passwordFromDB)) {
-            Helper::notify('Old password is wrong!');
-            Helper::redirect('profile');
+            self::notify('Old password is wrong!');
+            self::redirect('profile');
             return false;
         }
         if (!password_verify($oldPassword, $passwordFromDB)) {
-            Helper::notify('Old and new passwords is matches!');
-            Helper::redirect('profile');
+            self::notify('Old and new passwords is matches!');
+            self::redirect('profile');
             return false;
         }
         return true;

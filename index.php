@@ -9,9 +9,9 @@ require_once 'vendor/autoload.php';
 require_once 'app/PDO_Connect.php';
 
 if (!empty($_POST)) {
-    Controller::route(Helper::getRequestType());
+    Route::routeRequest(Controller::getRequestType());
 } else {
     require_once 'views/parts/header.php';
-    require_once 'app/Route.php';
+    require_once 'app/web.php';
     require_once 'views/parts/footer.php';
 }

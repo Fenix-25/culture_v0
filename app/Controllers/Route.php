@@ -2,7 +2,7 @@
 
 namespace Culture;
 
-class Route
+class Route extends Controller
 {
     private array $routes = [];
 
@@ -30,7 +30,29 @@ class Route
             $controller = new $controller();
             call_user_func_array([$controller, $action], $args);
         } else {
-            Helper::pageNotFound();
+            self::pageNotFound();
         }
+    }
+
+    public static function routeRequest($request): void
+    {
+        match ($request) {
+            //authentication
+            'login' => LoginController::login($_POST),
+            //registration
+            'register' => RegistrationController::registration($_POST),
+            //logout
+            'logout' => self::remUserSes(),
+            'profileUpdate' => ProfileController::profileUpdate($_POST),
+            'createCulture' => CultureController::createCulture($_POST),
+            'createOrder' => OrderController::createOrder($_POST),
+            'createFertilize' => FertilizeController::store($_POST),
+            'createOption' => OptionController::store($_POST),
+            'deleteCulture' => CultureController::deleteCulture($_POST['cultureId']),
+            'deleteOption' => OptionController::delete($_POST['weightId']),
+            'deleteUser' => UserController::deleteUser($_POST['userId']),
+            'deleteSquare' => SquareController::deleteSquare($_POST),
+            default => self::pageNotFound()
+        };
     }
 }

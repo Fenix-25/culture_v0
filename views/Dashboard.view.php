@@ -2,9 +2,9 @@
 use Culture\DashboardController;
 $cultures = DashboardController::cultures();
 $users = DashboardController::users();
-$squares = DashboardController::squares(); ?>
+$orders =DashboardController::orders(); ?>
 <?php if (count($cultures) > 0): ?>
-        <?php if (count($squares) > 0): ?>
+        <?php if (count($orders ) > 0): ?>
         <div class="table-responsive">
             <table class="table table-striped table-sm">
                 <thead>
@@ -20,11 +20,11 @@ $squares = DashboardController::squares(); ?>
                             <?= $culture['name'] ?>
                         </td>
                         <td>
-                            <?php $square = DashboardController::squaresSum($culture['id']) ?>
-                            <?= $square['sum(square)'] ? round($square['sum(square)'], 2) : "" ?>
+                            <?php $order = DashboardController::squaresSum($culture['id']);?>
+                            <?= $order['sum(square)'] ? round($order['sum(square)'], 2) : "" ?>
                         </td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endforeach;?>
                 </tbody>
             </table>
         </div>
@@ -45,10 +45,10 @@ $squares = DashboardController::squares(); ?>
                             <?= $user['name'] . " " . $user['surname'] ?>
                         </td>
                         <td>
-                            <?php foreach ($squares as $square): ?>
+                            <?php foreach ($orders  as $order): ?>
                                 <?php foreach ($cultures as $culture): ?>
-                                    <?php if ($user['id'] == $square['user_id']): ?>
-                                        <?php if ($culture['id'] == $square['culture_id']): ?>
+                                    <?php if ($user['id'] == $order['user_id']): ?>
+                                        <?php if ($culture['id'] == $order['culture_id']): ?>
                                             <?= $culture['name'] . ", " ?>
                                         <?php endif; ?>
                                     <?php endif; ?>
