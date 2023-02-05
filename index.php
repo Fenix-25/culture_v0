@@ -15,3 +15,7 @@ if (!empty($_POST)) {
     require_once 'app/web.php';
     require_once 'views/parts/footer.php';
 }
+
+//todo
+// загальна вага кожного добрива
+//

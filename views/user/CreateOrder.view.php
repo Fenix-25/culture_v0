@@ -22,5 +22,7 @@ $users = DashboardController::users(); ?>
     </select> <br>
     <label for="input-element">Square</label>
     <input id="input-element" type="number" min="0.01" step="0.01" placeholder="Square" name="square" max=""> ha <br>
+    <input type="number" min="0.01" step="0.01" placeholder="Price" name="price" ><br>
+    <label for="isShare">Is share</label><input type="checkbox" name="isShare" id="isShare" value="1"> <br>
     <input type="submit" value="Save">
 </form>

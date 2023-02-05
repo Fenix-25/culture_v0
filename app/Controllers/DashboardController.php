@@ -36,15 +36,16 @@ class DashboardController extends Controller
         }
         return DatabaseController::selectRecord('*','orders', isSingle: false);
     }
-    public static function squaresSum(int $culture_id): bool|array
+    public static function Sum(string $column, string $table, string $condition="" ): bool|array
     {
         if (empty($_SESSION['user'])) {
             return false;
         }
 //    return selectRecord('sum(square)','orders', $culture_id, true);
-        $query = "select sum(square) from orders where culture_id = :culture_id";
+        $query = "select sum({$column}) from {$table} ";
+        $query .= $condition ? "where {$condition}" : "";
         $square = PDO_Connect::connect()->prepare($query);
-        $square->execute([':culture_id' => htmlspecialchars($culture_id)]);
+        $square->execute();
         return $square->fetch(PDO::FETCH_ASSOC);
 
     }

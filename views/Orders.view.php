@@ -10,7 +10,11 @@ $orders =DashboardController::orders(); ?>
             <th scope="col">Order ID</th>
             <th scope="col">Owner</th>
             <th scope="col">Square</th>
+            <th scope="col">isShare</th>
             <th scope="col">Culture</th>
+            <th scope="col">Price</th>
+            <th scope="col">Created_at</th>
+            <th scope="col">Ended_at</th>
             <th scope="col">Config</th>
         </tr>
         </thead>
@@ -31,11 +35,23 @@ $orders =DashboardController::orders(); ?>
                     <?= $order['square'] ?>
                 </td>
                 <td>
+                    <?= $order['is_share'] ? "Yes" : "No" ?>
+                </td>
+                <td>
                     <?php foreach ($cultures as $culture): ?>
                         <?php if ($order['culture_id'] == $culture['id']): ?>
                             <?= $culture['name'] ?>
                         <?php endif; ?>
                     <?php endforeach; ?>
+                </td>
+                <td>
+                    <?= $order['price'] ?>
+                </td>
+                <td>
+                    <?= \Culture\Controller::timeFormat($order['created_at']) ?>
+                </td>
+                <td>
+                    <?= \Culture\Controller::timeFormat($order['ended_at']) ?>
                 </td>
                 <td>
                     <form action="/" method="post">
@@ -52,6 +68,17 @@ $orders =DashboardController::orders(); ?>
                 </td>
             </tr>
         <?php endforeach; ?>
+        <tr>
+            <td>Total:  </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><?= array_sum(DashboardController::Sum('price','orders')) ?></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
         </tbody>
     </table>
 </div>

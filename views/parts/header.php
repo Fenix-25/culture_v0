@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="stylesheet" href="../../assets/style.css">
     <title>Culture App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 <body>
 <?php use Culture\Controller;
@@ -133,7 +134,7 @@ if (!empty($_SESSION['user'])): ?>
         <?php if (!empty($_SESSION['user'])): ?>
         <?php if ($_SESSION['user']['isAdmin']): ?>
         <?php require_once 'views/parts/nav.php' ?>
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pt-3">
             <?php endif; ?>
             <?php else: ?>
             <main class="col-md-12">

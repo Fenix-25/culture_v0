@@ -7,15 +7,14 @@ class FertilizeController extends Controller
     public static function index()
     {
         $in_order = [];
-        $prop = [];
-        $culture_id = [];
-        $fertilizes = DatabaseController::selectRecord('*', 'fertilizes', isSingle: false);
+        $props = [];
+        $fertilizes = DatabaseController::selectRecord('*', 'fertilizes', isSingle: false, orderBy: 'name');
         $orders = DashboardController::orders();
         $cultures = DashboardController::cultures();
         $weights = DatabaseController::selectRecord('*', 'weights', isSingle: false);
         foreach ($orders as $ignored) {
             foreach ($cultures as $culture) {
-                $square = DashboardController::squaresSum($culture['id']);
+                $square = DashboardController::Sum('square', 'orders', "culture_id = '{$culture['id']}'");
                 $in_order[$culture['name']] = [
                     'culture_id' => $culture['id'],
                     'culture_name' => $culture['name'],
@@ -24,16 +23,14 @@ class FertilizeController extends Controller
             }
         }
 
-        foreach ($in_order as $_square) {
-            foreach ($weights as $weight) {
-                if ($weight['culture_id'] == $_square['culture_id']) {
-                    $culture_id[$_square['culture_name']] = [
-                        'id' => $_square['culture_id'],
-                    ];
-                    foreach ($fertilizes as $fertilize) {
+        foreach ($fertilizes as $fertilize) {
+            foreach ($in_order as $_square) {//площа для певгої культури
+                foreach ($weights as $weight) {// дозування добрива(вага)
+                    if ($weight['culture_id'] == $_square['culture_id']) {
                         if ($fertilize['id'] == $weight['fertilize_id']) {
-                            $prop[$_square['culture_name'] . "-" . $fertilize['name']] = [
+                            $props[$fertilize['name']][$_square['culture_id']] = [
                                 'fertilize_id' => $fertilize['id'],
+                                'fertilize_name' => $fertilize['name'],
                                 'qty' => floatval($_square['square']) * floatval($weight['weight'])
                             ];
                         }
@@ -44,8 +41,8 @@ class FertilizeController extends Controller
 
         return self::view('Fertilize', 'fertilize', [
             'fertilizes' => $fertilizes,
-            'prop' => $prop,
-            'culture_id' => $culture_id,
+            'props' => $props,
+            'cultures' => $cultures,
         ]);
     }
 
@@ -65,5 +62,12 @@ class FertilizeController extends Controller
         DatabaseController::insertRecord('fertilizes', $data);
         self::notify('Successfully created', 'success');
         self::redirect('create-fertilize');
+    }
+
+    public static function sort(array $array, int $fertilize_id)
+    {
+       $array = array_search($fertilize_id, $array);
+
+        return $array;
     }
 }

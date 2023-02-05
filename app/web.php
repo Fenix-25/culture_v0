@@ -25,5 +25,5 @@ if (Controller::accessForAdmin()){
     $route->addRoute('allData', "Controller", "view", ['allData']);
 }
 //Access for USER
-$route->addRoute('home', "Controller", "view", ['IndexUser']);
+$route->addRoute('home', "UserController", "index");
 $route->route(Controller::getUrl());

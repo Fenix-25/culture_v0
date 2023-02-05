@@ -20,7 +20,7 @@ $orders =DashboardController::orders(); ?>
                             <?= $culture['name'] ?>
                         </td>
                         <td>
-                            <?php $order = DashboardController::squaresSum($culture['id']);?>
+                            <?php $order = DashboardController::Sum('square', 'orders', "culture_id = '{$culture['id']}'");?>
                             <?= $order['sum(square)'] ? round($order['sum(square)'], 2) : "" ?>
                         </td>
                     </tr>

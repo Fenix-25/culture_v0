@@ -1,6 +1,5 @@
 <?php
 use Culture\DashboardController;
-$cultures = DashboardController::cultures();
 $users = DashboardController::users();
 $orders =DashboardController::orders(); ?>
 <div class="table-responsive">

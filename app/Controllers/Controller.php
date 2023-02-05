@@ -19,7 +19,7 @@ class Controller
         exit();
     }
 
-    public static function rdrCondition($condition, $path = 'login', $msg =""): void
+    public static function rdrCondition($condition, $path = 'login', $msg = ""): void
     {
         if ($condition) {
             self::notify($msg);
@@ -85,12 +85,20 @@ class Controller
 
     public static function accessForAdmin(): bool
     {
-        if (!empty($_SESSION['user'])){
-            if (!$_SESSION['user']['isAdmin']){
+        if (!empty($_SESSION['user'])) {
+            if (!$_SESSION['user']['isAdmin']) {
                 return false;
             }
         }
         return true;
+    }
+
+    public static function timeFormat(string $time, string $format = "d, M, Y", bool $timeInt = false): string
+    {
+        if ($timeInt) {
+            return strtotime($time);
+        }
+        return date($format, strtotime($time));
     }
 
 }

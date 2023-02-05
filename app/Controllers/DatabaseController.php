@@ -7,10 +7,11 @@ use PDO_Connect;
 
 class DatabaseController extends Controller
 {
-    public static function selectRecord($row, string $table, $condition = "", $isSingle = true)
+    public static function selectRecord($row, string $table, $condition = "", $isSingle = true, $orderBy = "")
     {
         $query = "select {$row} from {$table}";
         $query .= $condition ? " where {$condition}" : "";
+        $query .= $orderBy ? " order by {$orderBy}" : "";
         $select = PDO_Connect::connect()->prepare($query);
         $select->execute();
         return $isSingle ? $select->fetch(PDO::FETCH_ASSOC) : $select->fetchAll(PDO::FETCH_ASSOC);
