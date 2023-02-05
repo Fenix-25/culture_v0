@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `fertilizes` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- Data exporting was unselected.
 
@@ -41,12 +41,16 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `square` float NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `culture_id` bigint(20) NOT NULL,
+  `is_share` tinyint(1) DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ended_at` timestamp NULL DEFAULT NULL,
+  `price` float DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `culture_id` (`culture_id`),
   CONSTRAINT `culture_id` FOREIGN KEY (`culture_id`) REFERENCES `cultures` (`id`) ON DELETE CASCADE,
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
 
 -- Data exporting was unselected.
 
@@ -79,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `weights` (
   KEY `culture` (`culture_id`),
   CONSTRAINT `culture` FOREIGN KEY (`culture_id`) REFERENCES `cultures` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fertilize` FOREIGN KEY (`fertilize_id`) REFERENCES `fertilizes` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 
