@@ -6,7 +6,7 @@
         <th>User</th>
         <th>Square</th>
         <th>Is share</th>
-        <th>Price</th>
+        <th>Price</th> 
         <th>Create at</th>
         <th>End after</th>
     </tr>

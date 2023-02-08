@@ -63,11 +63,4 @@ class FertilizeController extends Controller
         self::notify('Successfully created', 'success');
         self::redirect('create-fertilize');
     }
-
-    public static function sort(array $array, int $fertilize_id)
-    {
-       $array = array_search($fertilize_id, $array);
-
-        return $array;
-    }
 }
